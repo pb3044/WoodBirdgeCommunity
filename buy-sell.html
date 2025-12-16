@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Woodbridge Buy/Sell Marketplace</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c5f7d;
+            --secondary: #4a9eba;
+            --accent: #f39c12;
+            --success: #27ae60;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-bottom: 2rem;
+        }
+        
+        .app-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .app-header {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .app-header h1 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .app-header p {
+            color: #6c757d;
+            margin: 0;
+        }
+        
+        .nav-buttons {
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .nav-buttons .btn {
+            margin: 0.25rem;
+            border-radius: 10px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .filter-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .filter-section .btn-group {
+            flex-wrap: wrap;
+        }
+        
+        .filter-section .btn {
+            border-radius: 8px;
+            margin: 0.25rem;
+        }
+        
+        .listing-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .listing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .listing-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .listing-body {
+            padding: 1.5rem;
+        }
+        
+        .listing-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--success);
+            margin-bottom: 0.5rem;
+        }
+        
+        .listing-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .listing-description {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .listing-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #6c757d;
+            border-top: 1px solid #e9ecef;
+            padding-top: 1rem;
+        }
+        
+        .badge {
+            border-radius: 8px;
+            padding: 0.4rem 0.8rem;
+            font-weight: 600;
+        }
+        
+        .contact-btn {
+            background: var(--secondary);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .listing-image {
+                height: 150px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="app-header">
+            <h1><i class="fas fa-store"></i> Woodbridge Marketplace</h1>
+            <p>Buy and sell within our community</p>
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="index.html" class="btn btn-outline-primary">
+                <i class="fas fa-calendar-alt"></i> Events
+            </a>
+            <a href="buysell.html" class="btn btn-primary">
+                <i class="fas fa-store"></i> Buy/Sell
+            </a>
+        </div>
+        
+        <div class="filter-section">
+            <h6 class="mb-3"><i class="fas fa-filter"></i> Filter by Category</h6>
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary active">All Items</button>
+                <button type="button" class="btn btn-outline-primary">Furniture</button>
+                <button type="button" class="btn btn-outline-success">Electronics</button>
+                <button type="button" class="btn btn-outline-info">Kids & Baby</button>
+                <button type="button" class="btn btn-outline-warning">Sports & Outdoors</button>
+                <button type="button" class="btn btn-outline-danger">Other</button>
+            </div>
+        </div>
+        
+        <div class="row g-4">
+            <!-- Listing 1 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <i class="fas fa-couch"></i>
+                    </div>
+                    <div class="listing-body">
+                        <div class="listing-price">$200</div>
+                        <div class="listing-title">Gray L-Shaped Sofa</div>
+                        <div class="listing-description">
+                            Gently used sectional sofa in excellent condition. Very comfortable and clean. Moving to smaller apartment, must sell. Dimensions: 90" x 65"
+                        </div>
+                        <span class="badge bg-primary mb-2">Furniture</span>
+                        <div class="listing-meta">
+                            <div>
+                                <i class="fas fa-user"></i> Unit 305<br>
+                                <i class="fas fa-calendar"></i> Posted 2 days ago
+                            </div>
+                            <button class="contact-btn">
+                                <i class="fas fa-envelope"></i> Contact
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Listing 2 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <i class="fas fa-bicycle"></i>
+                    </div>
+                    <div class="listing-body">
+                        <div class="listing-price">$150</div>
+                        <div class="listing-title">Mountain Bike - Adult</div>
+                        <div class="listing-description">
+                            21-speed mountain bike in great working condition. Recently tuned up with new tires. Perfect for trails or city riding. Black and blue color.
+                        </div>
+                        <span class="badge bg-warning text-dark mb-2">Sports & Outdoors</span>
+                        <div class="listing-meta">
+                            <div>
+                                <i class="fas fa-user"></i> Unit 412<br>
+                                <i class="fas fa-calendar"></i> Posted 1 week ago
+                            </div>
+                            <button class="contact-btn">
+                                <i class="fas fa-envelope"></i> Contact
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Listing 3 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <i class="fas fa-tv"></i>
+                    </div>
+                    <div class="listing-body">
+                        <div class="listing-price">$300</div>
+                        <div class="listing-title">43" Smart TV - Samsung</div>
+                        <div class="listing-description">
+                            Samsung 43" 4K Smart TV, barely used. Upgraded to larger size. Includes remote and original box. Works perfectly, no issues.
+                        </div>
+                        <span class="badge bg-success mb-2">Electronics</span>
+                        <div class="listing-meta">
+                            <div>
+                                <i class="fas fa-user"></i> Unit 218<br>
+                                <i class="fas fa-calendar"></i> Posted 3 days ago
+                            </div>
+                            <button class="contact-btn">
+                                <i class="fas fa-envelope"></i> Contact
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Listing 4 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <i class="fas fa-baby-carriage"></i>
+                    </div>
+                    <div class="listing-body">
+                        <div class="listing-price">$80</div>
+                        <div class="listing-title">Baby Stroller - Like New</div>
+                        <div class="listing-description">
+                            Lightweight compact stroller with sun canopy. Used only a few times, baby outgrew it quickly. Easy to fold and store. Includes rain cover.
+                        </div>
+                        <span class="badge bg-info mb-2">Kids & Baby</span>
+                        <div class="listing-meta">
+                            <div>
+                                <i class="fas fa-user"></i> Unit 507<br>
+                                <i class="fas fa-calendar"></i> Posted 5 days ago
+                            </div>
+                            <button class="contact-btn">
+                                <i class="fas fa-envelope"></i> Contact
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Listing 5 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <i class="fas fa-chair"></i>
+                    </div>
+                    <div class="listing-body">
+                        <div class="listing-price">$120</div>
+                        <div class="listing-title">Office Chair - Ergonomic</div>
+                        <div class="listing-description">
+                            High-back ergonomic office chair with lumbar support. Adjustable height and armrests. Black mesh back, padded seat. Great for home office.
+                        </div>
+                        <span class="badge bg-primary mb-2">Furniture</span>
+                        <div class="listing-meta">
+                            <div>
+                                <i class="fas fa-user"></i> Unit 601<br>
+                                <i class="fas fa-calendar"></i> Posted 1 day ago
+                            </div>
+                            <button class="contact-btn">
+                                <i class="fas fa-envelope"></i> Contact
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Listing 6 -->
+            <div class="col-md-6 col-lg-4">
+                <div class="listing-card">
+                    <div class="listing-image">
+                        <i class="fas fa-blender"></i>
+                    </div>
+                    <div class="listing-body">
+                        <div class="listing-price">$40</div>
+                        <div class="listing-title">Kitchen Appliances Bundle</div>
+                        <div class="listing-description">
+                            Blender, toaster, and coffee maker - all in working condition. Selling as a bundle. Perfect for someone just moving in or setting up kitchen.
+                        </div>
+                        <span class="badge bg-danger mb-2">Other</span>
+                        <div class="listing-meta">
+                            <div>
+                                <i class="fas fa-user"></i> Unit 103<br>
+                                <i class="fas fa-calendar"></i> Posted 4 days ago
+                            </div>
+                            <button class="contact-btn">
+                                <i class="fas fa-envelope"></i> Contact
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <p style="color: white; opacity: 0.9;">
+                <i class="fas fa-info-circle"></i> To list your items, please contact the community office or use the community bulletin board.
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Filter functionality
+            $('.filter-section .btn').on('click', function() {
+                $('.filter-section .btn').removeClass('active');
+                $(this).addClass('active');
+                
+                // In a real app, this would filter the listings
+                // For static version, this is just for visual feedback
+            });
+            
+            // Contact button functionality
+            $('.contact-btn').on('click', function() {
+                const listingCard = $(this).closest('.listing-card');
+                const title = listingCard.find('.listing-title').text();
+                const unit = listingCard.find('.listing-meta i.fa-user').parent().text().trim().split('\n')[0];
+                
+                alert(`To contact the seller about "${title}", please:\n\n1. Leave a note at ${unit}\n2. Contact through the community office\n3. Use the community message board`);
+            });
+        });
+    </script>
+</body>
+</html>
