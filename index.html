@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Woodbridge Community Events</title>
+    <title>Woodbridge Community Dashboard</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
@@ -11,6 +11,7 @@
             --primary: #2c5f7d;
             --secondary: #4a9eba;
             --accent: #f39c12;
+            --success: #27ae60;
         }
         
         body {
@@ -20,7 +21,7 @@
         }
         
         .app-container {
-            max-width: 900px;
+            max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -45,80 +46,194 @@
             margin: 0;
         }
         
-        .card {
-            border: none;
+        .section-card {
+            background: white;
             border-radius: 15px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             overflow: hidden;
+        }
+        
+        .section-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-header:hover {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+        }
+        
+        .section-header h3 {
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .section-header i.toggle-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .section-header.collapsed i.toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-body {
+            padding: 1.5rem;
+        }
+        
+        .item-row {
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
             background: white;
         }
         
-        .event-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .item-row:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
         }
         
-        .event-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
         
-        .event-date {
+        .item-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            flex: 1;
+        }
+        
+        .item-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .item-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 2px solid #e9ecef;
+            display: none;
+        }
+        
+        .item-details.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .event-date-badge {
             background: var(--accent);
             color: white;
-            padding: 1rem;
-            text-align: center;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             font-weight: 700;
-            min-width: 80px;
+            text-align: center;
+            min-width: 60px;
         }
         
-        .event-date .day {
-            font-size: 2rem;
-            line-height: 1;
-        }
-        
-        .event-date .month {
-            font-size: 0.9rem;
-            text-transform: uppercase;
+        .price-badge {
+            background: var(--success);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.2rem;
         }
         
         .badge {
             border-radius: 8px;
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.8rem;
             font-weight: 600;
         }
         
-        .event-info {
-            padding: 1.5rem;
+        .info-text {
+            color: #6c757d;
+            margin: 0.5rem 0;
         }
         
-        .event-info h5 {
-            margin-bottom: 1rem;
+        .info-text i {
+            color: var(--secondary);
+            margin-right: 0.5rem;
+        }
+        
+        .contact-btn {
+            background: var(--secondary);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
             color: var(--primary);
         }
         
-        .event-meta {
+        .stat-label {
             color: #6c757d;
-            margin-bottom: 1rem;
+            font-weight: 600;
         }
         
-        .event-meta i {
-            margin-right: 0.5rem;
-            color: var(--secondary);
-        }
-        
-        @media (max-width: 576px) {
-            .event-date {
-                min-width: 70px;
-                padding: 0.75rem;
+        @media (max-width: 768px) {
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
             }
             
-            .event-date .day {
-                font-size: 1.5rem;
-            }
-            
-            .event-info {
-                padding: 1rem;
+            .stat-card {
+                min-width: 100%;
             }
         }
     </style>
@@ -126,139 +241,278 @@
 <body>
     <div class="app-container">
         <div class="app-header">
-            <h1><i class="fas fa-calendar-alt"></i> Woodbridge Community</h1>
-            <p>Stay connected with local events</p>
+            <h1><i class="fas fa-home"></i> Woodbridge Community</h1>
+            <p>Your neighborhood hub for events and marketplace</p>
         </div>
         
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title mb-4"><i class="fas fa-calendar-check"></i> Upcoming Events</h5>
-                
-                <!-- Event 1: Know Your Neighbour -->
-                <div class="card event-card mb-3">
-                    <div class="card-body p-0">
-                        <div class="d-flex flex-column flex-sm-row">
-                            <div class="event-date">
-                                <div class="day">20</div>
-                                <div class="month">Dec</div>
-                            </div>
-                            <div class="flex-grow-1 event-info">
-                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
-                                    <h5 class="mb-1">Know Your Neighbour Social</h5>
-                                    <span class="badge bg-primary">Social</span>
-                                </div>
-                                <p class="event-meta mb-2">
-                                    <i class="fas fa-clock"></i> 6:00 PM<br>
-                                    <i class="fas fa-map-marker-alt"></i> Community Room
-                                </p>
-                                <p class="mb-0">Join us for a fun evening to meet and connect with your Woodbridge neighbors! Light refreshments will be served. Bring your family and let's build a stronger, more connected community together!</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Event 2: Holiday Party -->
-                <div class="card event-card mb-3">
-                    <div class="card-body p-0">
-                        <div class="d-flex flex-column flex-sm-row">
-                            <div class="event-date">
-                                <div class="day">24</div>
-                                <div class="month">Dec</div>
-                            </div>
-                            <div class="flex-grow-1 event-info">
-                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
-                                    <h5 class="mb-1">Holiday Celebration</h5>
-                                    <span class="badge bg-primary">Social</span>
-                                </div>
-                                <p class="event-meta mb-2">
-                                    <i class="fas fa-clock"></i> 7:00 PM<br>
-                                    <i class="fas fa-map-marker-alt"></i> Main Lobby
-                                </p>
-                                <p class="mb-0">Celebrate the holiday season with your neighbors! Enjoy festive music, holiday treats, and great company. Kids activities included. Don't miss our annual gift exchange!</p>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Upcoming Events</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Active Listings</div>
+            </div>
+        </div>
+        
+        <!-- EVENTS SECTION -->
+        <div class="section-card">
+            <div class="section-header" data-bs-toggle="collapse" data-bs-target="#eventsSection">
+                <h3><i class="fas fa-calendar-alt"></i> Community Events</h3>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="collapse show" id="eventsSection">
+                <div class="section-body">
+                    
+                    <!-- Event 1 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title">Know Your Neighbour Social</div>
+                            <div class="item-meta">
+                                <div class="event-date-badge">Dec 20</div>
+                                <span class="badge bg-primary">Social</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Event 3: New Year Fitness -->
-                <div class="card event-card mb-3">
-                    <div class="card-body p-0">
-                        <div class="d-flex flex-column flex-sm-row">
-                            <div class="event-date">
-                                <div class="day">5</div>
-                                <div class="month">Jan</div>
-                            </div>
-                            <div class="flex-grow-1 event-info">
-                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
-                                    <h5 class="mb-1">New Year Fitness Kickoff</h5>
-                                    <span class="badge bg-success">Sports</span>
-                                </div>
-                                <p class="event-meta mb-2">
-                                    <i class="fas fa-clock"></i> 8:00 AM<br>
-                                    <i class="fas fa-map-marker-alt"></i> Fitness Center
-                                </p>
-                                <p class="mb-0">Start your new year right with a community workout session! Join our certified trainer for a fun group fitness class suitable for all levels. Bring your water bottle and positive energy!</p>
-                            </div>
+                        <div class="item-details">
+                            <p class="info-text"><i class="fas fa-clock"></i> 6:00 PM</p>
+                            <p class="info-text"><i class="fas fa-map-marker-alt"></i> Community Room</p>
+                            <p class="mb-3">Join us for a fun evening to meet and connect with your Woodbridge neighbors! Light refreshments will be served. Bring your family and let's build a stronger, more connected community together!</p>
                         </div>
                     </div>
-                </div>
-                
-                <!-- Event 4: Board Meeting -->
-                <div class="card event-card mb-3">
-                    <div class="card-body p-0">
-                        <div class="d-flex flex-column flex-sm-row">
-                            <div class="event-date">
-                                <div class="day">15</div>
-                                <div class="month">Jan</div>
-                            </div>
-                            <div class="flex-grow-1 event-info">
-                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
-                                    <h5 class="mb-1">Monthly Board Meeting</h5>
-                                    <span class="badge bg-info">Meeting</span>
-                                </div>
-                                <p class="event-meta mb-2">
-                                    <i class="fas fa-clock"></i> 7:00 PM<br>
-                                    <i class="fas fa-map-marker-alt"></i> Conference Room
-                                </p>
-                                <p class="mb-0">Join us for our monthly community board meeting. Review financial reports, discuss upcoming projects, and share your feedback. All residents welcome to attend and participate.</p>
+                    
+                    <!-- Event 2 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title">Holiday Celebration</div>
+                            <div class="item-meta">
+                                <div class="event-date-badge">Dec 24</div>
+                                <span class="badge bg-primary">Social</span>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-                <!-- Event 5: DIY Workshop -->
-                <div class="card event-card mb-3">
-                    <div class="card-body p-0">
-                        <div class="d-flex flex-column flex-sm-row">
-                            <div class="event-date">
-                                <div class="day">28</div>
-                                <div class="month">Jan</div>
-                            </div>
-                            <div class="flex-grow-1 event-info">
-                                <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
-                                    <h5 class="mb-1">Home DIY Workshop</h5>
-                                    <span class="badge bg-warning text-dark">Workshop</span>
-                                </div>
-                                <p class="event-meta mb-2">
-                                    <i class="fas fa-clock"></i> 2:00 PM<br>
-                                    <i class="fas fa-map-marker-alt"></i> Community Workshop
-                                </p>
-                                <p class="mb-0">Learn basic home maintenance skills from our resident expert! This month: fixing leaky faucets and basic electrical troubleshooting. Hands-on demonstrations and Q&A session included.</p>
-                            </div>
+                        <div class="item-details">
+                            <p class="info-text"><i class="fas fa-clock"></i> 7:00 PM</p>
+                            <p class="info-text"><i class="fas fa-map-marker-alt"></i> Main Lobby</p>
+                            <p class="mb-3">Celebrate the holiday season with your neighbors! Enjoy festive music, holiday treats, and great company. Kids activities included. Don't miss our annual gift exchange!</p>
                         </div>
                     </div>
+                    
+                    <!-- Event 3 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title">New Year Fitness Kickoff</div>
+                            <div class="item-meta">
+                                <div class="event-date-badge">Jan 5</div>
+                                <span class="badge bg-success">Sports</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="info-text"><i class="fas fa-clock"></i> 8:00 AM</p>
+                            <p class="info-text"><i class="fas fa-map-marker-alt"></i> Fitness Center</p>
+                            <p class="mb-3">Start your new year right with a community workout session! Join our certified trainer for a fun group fitness class suitable for all levels. Bring your water bottle and positive energy!</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Event 4 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title">Monthly Board Meeting</div>
+                            <div class="item-meta">
+                                <div class="event-date-badge">Jan 15</div>
+                                <span class="badge bg-info">Meeting</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="info-text"><i class="fas fa-clock"></i> 7:00 PM</p>
+                            <p class="info-text"><i class="fas fa-map-marker-alt"></i> Conference Room</p>
+                            <p class="mb-3">Join us for our monthly community board meeting. Review financial reports, discuss upcoming projects, and share your feedback. All residents welcome to attend and participate.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Event 5 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title">Home DIY Workshop</div>
+                            <div class="item-meta">
+                                <div class="event-date-badge">Jan 28</div>
+                                <span class="badge bg-warning text-dark">Workshop</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="info-text"><i class="fas fa-clock"></i> 2:00 PM</p>
+                            <p class="info-text"><i class="fas fa-map-marker-alt"></i> Community Workshop</p>
+                            <p class="mb-3">Learn basic home maintenance skills from our resident expert! This month: fixing leaky faucets and basic electrical troubleshooting. Hands-on demonstrations and Q&A session included.</p>
+                        </div>
+                    </div>
+                    
                 </div>
-                
+            </div>
+        </div>
+        
+        <!-- BUY/SELL SECTION -->
+        <div class="section-card">
+            <div class="section-header" data-bs-toggle="collapse" data-bs-target="#buysellSection">
+                <h3><i class="fas fa-store"></i> Buy/Sell Marketplace</h3>
+                <i class="fas fa-chevron-down toggle-icon"></i>
+            </div>
+            <div class="collapse show" id="buysellSection">
+                <div class="section-body">
+                    
+                    <!-- Listing 1 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title"><i class="fas fa-couch text-primary me-2"></i> Gray L-Shaped Sofa</div>
+                            <div class="item-meta">
+                                <div class="price-badge">$200</div>
+                                <span class="badge bg-primary">Furniture</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="mb-3">Gently used sectional sofa in excellent condition. Very comfortable and clean. Moving to smaller apartment, must sell. Dimensions: 90" x 65"</p>
+                            <p class="info-text"><i class="fas fa-user"></i> Unit 305</p>
+                            <p class="info-text"><i class="fas fa-calendar"></i> Posted 2 days ago</p>
+                            <button class="contact-btn mt-2" onclick="contactSeller(event, 'Gray L-Shaped Sofa', 'Unit 305')">
+                                <i class="fas fa-envelope"></i> Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Listing 2 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title"><i class="fas fa-bicycle text-warning me-2"></i> Mountain Bike - Adult</div>
+                            <div class="item-meta">
+                                <div class="price-badge">$150</div>
+                                <span class="badge bg-warning text-dark">Sports</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="mb-3">21-speed mountain bike in great working condition. Recently tuned up with new tires. Perfect for trails or city riding. Black and blue color.</p>
+                            <p class="info-text"><i class="fas fa-user"></i> Unit 412</p>
+                            <p class="info-text"><i class="fas fa-calendar"></i> Posted 1 week ago</p>
+                            <button class="contact-btn mt-2" onclick="contactSeller(event, 'Mountain Bike', 'Unit 412')">
+                                <i class="fas fa-envelope"></i> Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Listing 3 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title"><i class="fas fa-tv text-success me-2"></i> 43" Smart TV - Samsung</div>
+                            <div class="item-meta">
+                                <div class="price-badge">$300</div>
+                                <span class="badge bg-success">Electronics</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="mb-3">Samsung 43" 4K Smart TV, barely used. Upgraded to larger size. Includes remote and original box. Works perfectly, no issues.</p>
+                            <p class="info-text"><i class="fas fa-user"></i> Unit 218</p>
+                            <p class="info-text"><i class="fas fa-calendar"></i> Posted 3 days ago</p>
+                            <button class="contact-btn mt-2" onclick="contactSeller(event, '43\" Smart TV', 'Unit 218')">
+                                <i class="fas fa-envelope"></i> Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Listing 4 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title"><i class="fas fa-baby-carriage text-info me-2"></i> Baby Stroller - Like New</div>
+                            <div class="item-meta">
+                                <div class="price-badge">$80</div>
+                                <span class="badge bg-info">Kids & Baby</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="mb-3">Lightweight compact stroller with sun canopy. Used only a few times, baby outgrew it quickly. Easy to fold and store. Includes rain cover.</p>
+                            <p class="info-text"><i class="fas fa-user"></i> Unit 507</p>
+                            <p class="info-text"><i class="fas fa-calendar"></i> Posted 5 days ago</p>
+                            <button class="contact-btn mt-2" onclick="contactSeller(event, 'Baby Stroller', 'Unit 507')">
+                                <i class="fas fa-envelope"></i> Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Listing 5 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title"><i class="fas fa-chair text-primary me-2"></i> Office Chair - Ergonomic</div>
+                            <div class="item-meta">
+                                <div class="price-badge">$120</div>
+                                <span class="badge bg-primary">Furniture</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="mb-3">High-back ergonomic office chair with lumbar support. Adjustable height and armrests. Black mesh back, padded seat. Great for home office.</p>
+                            <p class="info-text"><i class="fas fa-user"></i> Unit 601</p>
+                            <p class="info-text"><i class="fas fa-calendar"></i> Posted 1 day ago</p>
+                            <button class="contact-btn mt-2" onclick="contactSeller(event, 'Office Chair', 'Unit 601')">
+                                <i class="fas fa-envelope"></i> Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Listing 6 -->
+                    <div class="item-row" onclick="toggleDetails(this)">
+                        <div class="item-header">
+                            <div class="item-title"><i class="fas fa-blender text-danger me-2"></i> Kitchen Appliances Bundle</div>
+                            <div class="item-meta">
+                                <div class="price-badge">$40</div>
+                                <span class="badge bg-danger">Other</span>
+                            </div>
+                        </div>
+                        <div class="item-details">
+                            <p class="mb-3">Blender, toaster, and coffee maker - all in working condition. Selling as a bundle. Perfect for someone just moving in or setting up kitchen.</p>
+                            <p class="info-text"><i class="fas fa-user"></i> Unit 103</p>
+                            <p class="info-text"><i class="fas fa-calendar"></i> Posted 4 days ago</p>
+                            <button class="contact-btn mt-2" onclick="contactSeller(event, 'Kitchen Appliances', 'Unit 103')">
+                                <i class="fas fa-envelope"></i> Contact Seller
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
             </div>
         </div>
         
         <div class="text-center mt-4">
             <p style="color: white; opacity: 0.9;">
-                <i class="fas fa-info-circle"></i> For more information about these events, please contact the community office.
+                <i class="fas fa-info-circle"></i> For more information or to post your own listings, contact the community office.
             </p>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle individual item details
+        function toggleDetails(element) {
+            const details = element.querySelector('.item-details');
+            const allDetails = document.querySelectorAll('.item-details');
+            
+            // Close all other details
+            allDetails.forEach(detail => {
+                if (detail !== details && detail.classList.contains('show')) {
+                    detail.classList.remove('show');
+                }
+            });
+            
+            // Toggle current details
+            details.classList.toggle('show');
+        }
+        
+        // Handle section collapse icon rotation
+        document.querySelectorAll('.section-header').forEach(header => {
+            header.addEventListener('click', function() {
+                this.classList.toggle('collapsed');
+            });
+        });
+        
+        // Contact seller function
+        function contactSeller(event, itemName, unit) {
+            event.stopPropagation();
+            alert(`To contact the seller about "${itemName}", please:\n\n1. Leave a note at ${unit}\n2. Contact through the community office\n3. Use the community message board`);
+        }
+    </script>
 </body>
 </html>
